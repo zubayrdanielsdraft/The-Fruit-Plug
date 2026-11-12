@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background-color: rgb(15 81 50);
+  color: #4a5568;
+  padding: 2rem;
+}
+ header img {
+    max-width: 100%;
+    height: auto;
+    width: 400px;
+ }
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  color: white;
+}
+
+.cart-indicator {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #FF7F11;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  padding: 0.6rem 1.2rem;
+  background-color: white;
+  color: #4a5568;
+  font-weight: 500;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.filter-button:hover {
+  background-color: #cbd5e0;
+}
+
+#filter-all:checked ~ .filter-container label[for="filter-all"],
+#filter-cups:checked ~ .filter-container label[for="filter-cups"],
+#filter-platters:checked ~ .filter-container label[for="filter-platters"],
+#filter-promotions:checked ~ .filter-container label[for="filter-promotions"] {
+  background-color: #FF7F11;
+  color: #FFFFFF;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.gallery-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: grid;
+  grid-template-rows: 200px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+  transition: transform 0.4s ease;
+}
+
+.card-content {
+  padding: 1rem;
+  gap: 0.4rem;
+}
+
+.category-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #FF7F11;
+}
+
+.card-content h3 {
+  font-size: 1.1rem;
+  color: #2d3748;
+}
+
+.gallery-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Modal Pop up Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+}
+
+.modal-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.modal-details h3 {
+  font-size: 1.4rem;
+  color: #2d3748;
+}
+
+.modal-details p {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.add-to-cart-btn {
+  background-color: #FF7F11;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #2b6cb0;
+}
+
+#filter-cups:checked ~ .gallery-grid .gallery-card:not([data-category="cups"]),
+#filter-platters:checked ~ .gallery-grid .gallery-card:not([data-category="platters"]),
+#filter-promotions:checked ~ .gallery-grid .gallery-card:not([data-category="promotions"]) {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}

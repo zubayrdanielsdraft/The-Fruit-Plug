@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit Plug</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="gallery-header">
+    <img src="/52702.jpg" alt="">
+    <p>Fresh Fruit. Full of Flavour. Every time.</p>
+    <div class="cart-indicator">
+      🛒 Cart: <span id="cart-count">0</span> items
+    </div>
+  </header>
+
+  <main>
+    <input type="radio" name="filter" id="filter-all" checked>
+    <input type="radio" name="filter" id="filter-cups">
+    <input type="radio" name="filter" id="filter-platters">
+    <input type="radio" name="filter" id="filter-promotions">
+
+    <div class="filter-container">
+      <label for="filter-all" class="filter-button">All</label>
+      <label for="filter-cups" class="filter-button">Fruit Cups</label>
+      <label for="filter-platters" class="filter-button">Platters</label>
+      <label for="filter-promotions" class="filter-button">Promotions</label>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- Card 1 -->
+      <div class="gallery-card" data-category="cups">
+        <img src="" alt="Image 1">
+        <div class="card-content">
+          <span class="category-tag">cups</span>
+          <h3>Watermelon Cup (350ml)</h3>
+          <p>R20</p>
+        </div>
+        <div class="card-description" style="display:none;">
+            <p></p>
+
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gallery-card" data-category="promotions">
+        <img src="" alt="Image 2">
+        <div class="card-content">
+          <span class="category-tag">Promotions</span>
+          <h3>Fruit Trio</h3>
+          <p>R50</p>
+        </div>
+        <div class="card-description" style="display:none;">
+            <p>Contents: Watermelon, Sweet Melon, Pineapple</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="gallery-card" data-category="platters">
+        <img src="/52698.jpg" alt="Image 3">
+        <div class="card-content">
+          <span class="category-tag">Platters</span>
+          <h3>Small Platter</h3>
+          <p>R200</p>
+        </div>
+        <div class="card-description" style="display:none;">
+            <p>Contents: Watermelon, Sweet Melon, Pineapple, Grapes, Blueberries, Mint</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="gallery-card" data-category="platters">
+        <img src="" alt="Image 4">
+        <div class="card-content">
+          <span class="category-tag">Platters</span>
+          <h3>Large Platter</h3>
+          <p>R500</p>
+        </div>
+        <div class="card-description" style="display:none;">
+            <p>Contents: Watermelon, Sweet Melon, Pineapple, Grapes, Strawberries, Blueberries, Mint</p>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="gallery-card" data-category="cups">
+        <img src="" alt="Image 5">
+        <div class="card-content">
+          <span class="category-tag">cups</span>
+          <h3>Pineapple Cup (350ml)</h3>
+          <p>R25</p>
+        </div>
+        <div class="card-description" style="display:none;">
+            <p></p>
+        </div>
+      </div>
+        <!-- Card 8 -->
+      <div class="gallery-card" data-category="cups">
+        <img src="" alt="Image 8">
+        <div class="card-content">
+          <span class="category-tag">cups</span>
+          <h3>Sweet Melon Cup (350ml)</h3>
+          <p>R25</p>
+        </div>
+        <div class="card-description" style="display:none;"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Pop up -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <img id="modalImg" src="" alt="Modal Image">
+      <div class="modal-details">
+        <span id="modalCategory" class="category-tag"></span>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDesc"></p>
+        <button id="addToCartBtn" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.gallery-card');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalCategory = document.getElementById('modalCategory');
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    const cartCountEl = document.getElementById('cart-count');
+
+    let cartCount = 0;
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const imgSrc = card.querySelector('img').src;
+        const title = card.querySelector('h3').textContent;
+        const category = card.querySelector('.category-tag').textContent;
+        const desc = card.querySelector('.card-description').textContent;
+
+        modalImg.src = imgSrc;
+        modalTitle.textContent = title;
+        modalCategory.textContent = category;
+        modalDesc.textContent = desc;
+
+        modalOverlay.classList.add('active');
+      });
+    });
+
+    modalClose.addEventListener('click', () => {
+      modalOverlay.classList.remove('active');
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('active');
+      }
+    });
+
+    addToCartBtn.addEventListener('click', () => {
+      cartCount++;
+      cartCountEl.textContent = cartCount;
+      addToCartBtn.textContent = 'Added! ✓';
+      addToCartBtn.style.backgroundColor = '#38a169';
+      
+      setTimeout(() => {
+        addToCartBtn.textContent = 'Add to Cart';
+        addToCartBtn.style.backgroundColor = '#3182ce';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
